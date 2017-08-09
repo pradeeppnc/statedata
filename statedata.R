@@ -1,0 +1,18 @@
+statedata = read.csv(choose.files())
+data(state)
+statedata = cbind(data.frame(state.x77), state.abb, state.area, state.center,  state.division, state.name, state.region)
+plot(statedata$x, statedata$y)
+tapply(statedata$HS.Grad, statedata$state.region, mean)
+boxplot(statedata$Murder ~ statedata$state.region)
+Northeast = subset(statedata, statedata$state.region == "Northeast")
+which.max(Northeast$Murder)
+StatedataLM = lm(statedata$Life.Exp ~ statedata$Population + statedata$Income + statedata$Illiteracy + statedata$Murder + statedata$HS.Grad + statedata$Frost + statedata$Area, data = statedata)
+summary(StatedataLM)
+plot(statedata$Income, statedata$Life.Exp)
+LinReg = lm(Life.Exp ~ Population + Murder + HS.Grad + Frost, data=statedata)
+summary(LinReg)
+sort(predict(LinReg))
+which.min(statedata$Life.Exp)
+statedata$state.name[40]
+which.max(statedata$Life.Exp)
+statedata$state.name[11]
